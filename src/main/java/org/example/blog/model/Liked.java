@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Liked {
-    private int l_id;
-    private int u_id;
-    private int t_id;
+    private String l_id;
+    private String u_id;
+    private String t_id;
 }

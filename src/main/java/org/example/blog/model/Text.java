@@ -1,7 +1,10 @@
 package org.example.blog.model;
 
+import lombok.Data;
+
+@Data
 public class Text {
-    private int t_id;
+    private String t_id;
     private String title;
     private String t_picture;
     private String content;

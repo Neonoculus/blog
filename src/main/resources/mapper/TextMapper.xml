@@ -4,4 +4,9 @@
 <mapper namespace="org.example.blog.mapper.TextMapper">
 
 
+    <select id="getTextToSort" resultType="org.example.blog.model.Text">
+        SELECT *
+        FROM text
+        WHERE s_id = #{sId}
+    </select>
 </mapper>

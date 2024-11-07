@@ -4,4 +4,7 @@
 <mapper namespace="org.example.blog.mapper.SortMapper">
 
 
+    <select id="getAllSort" resultType="org.example.blog.model.Sort">
+        SELECT * FROM sort;
+    </select>
 </mapper>
