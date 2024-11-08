@@ -5,14 +5,54 @@
 
     <!-- 插入用户 -->
     <insert id="insert" parameterType="org.example.blog.model.User">
-        INSERT INTO user (id,username, password, email, sex, phone, card, avatar)
-        VALUES (#{id},#{username}, #{password}, #{email}, #{sex}, #{phone}, #{card}, #{avatar})
+        INSERT INTO user (id,nickname,username, password, email, sex, phone, card, avatar)
+        VALUES (#{id},#{nickname}, #{password}, #{email}, #{sex}, #{phone}, #{card}, #{avatar})
     </insert>
+    <!-- 修改用户信息 -->
+    <update id="updateUserInfo" parameterType="org.example.blog.model.User">
+        UPDATE user
+        <set>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="card != null">card = #{card},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
     <!-- 用户登录：根据用户名和密码查询用户 -->
     <select id="login" parameterType="org.example.blog.model.User" resultType="org.example.blog.model.User">
-        SELECT id, username, password, email, sex, phone, card, avatar
+        SELECT *
         FROM user
         WHERE username = #{username} AND password = #{password}
+    </select>
+    <select id="getUserInfoById" resultType="org.example.blog.model.User">
+        SELECT *
+        FROM user
+        WHERE id = #{id}
+    </select>
+    <select id="getUserInfoByEmail" resultType="org.example.blog.model.User">
+        SELECT *
+        FROM user
+        WHERE email = #{email}
+    </select>
+    <select id="getUserInfoByPhone" resultType="org.example.blog.model.User">
+        SELECT *
+        FROM user
+        WHERE phone = #{phone}
+    </select>
+    <select id="getUserInfoByCard" resultType="org.example.blog.model.User">
+        SELECT *
+        FROM user
+        WHERE card = #{card}
+    </select>
+    <select id="getUserInfoByNickname" resultType="org.example.blog.model.User">
+        SELECT *
+        FROM user
+        WHERE nickname = #{nickname}
     </select>
 </mapper>

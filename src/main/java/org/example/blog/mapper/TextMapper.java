@@ -9,5 +9,9 @@ import java.util.List;
 public interface TextMapper {
 
 
-    List<Text> getTextToSort(String sId);
+    List<Text> getTextBySort(String sId);
+
+    Text getTextByTID(String tId);
+
+    List<Text> getTextByUId(String uId);
 }

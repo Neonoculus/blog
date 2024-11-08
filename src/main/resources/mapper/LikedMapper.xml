@@ -4,4 +4,9 @@
 <mapper namespace="org.example.blog.mapper.LikedMapper">
 
 
+    <select id="getLikedByUser" resultType="org.example.blog.model.Liked">
+        SELECT *
+        FROM liked
+        WHERE u_id = #{id}
+    </select>
 </mapper>

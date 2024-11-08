@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController  // 使用 @RestController，已包含 @Controller 和 @ResponseBody
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -19,7 +19,7 @@ public class UserController {
 
     // 创建新用户
     @PostMapping("/register")
-    public ResponseResult<Void> createUser(@ModelAttribute User user) {
+    public ResponseResult<Void> createUser(@RequestBody User user) {
         try {
             userService.createUser(user);
             // 如果创建成功，返回一个成功的响应
@@ -32,7 +32,7 @@ public class UserController {
 
     // 用户登录
     @PostMapping("/login")
-    public ResponseResult<User> login(@ModelAttribute User user) {
+    public ResponseResult<User> login(@RequestBody  User user) {
         try {
             User loggedInUser = userService.login(user);
             if (loggedInUser == null) {
@@ -41,6 +41,41 @@ public class UserController {
             }
             // 登录成功，返回用户信息
             return ResponseResult.success(loggedInUser);
+        } catch (Exception e) {
+            // 如果发生错误，返回 500 错误响应
+            return ResponseResult.internalServerError("登录失败：" + e.getMessage());
+        }
+    }
+
+    // 获取用户信息
+    @PostMapping("/getUserInfo")
+    public ResponseResult<User> getUserInfo(@RequestBody  User user) {
+        try {
+            User returnUser = userService.getUserInfo(user);
+            if (returnUser == null||returnUser.getId()==null||(returnUser.getUsername()==null&&returnUser.getPassword()==null)) {
+                // 如果获取失败，返回 404 资源未找到
+                return ResponseResult.notFound("用户信息获取失败，请联系管理员");
+            }
+            // 获取成功，返回用户信息
+            return ResponseResult.success(returnUser);
+        } catch (Exception e) {
+            // 如果发生错误，返回 500 错误响应
+            return ResponseResult.internalServerError("登录失败：" + e.getMessage());
+        }
+    }
+
+    // 修改用户信息
+    @PostMapping("/updateUserInfo")
+    public ResponseResult<User> updateUserInfo(@RequestBody  User user) {
+        try {
+            User returnUser = userService.updateUserInfo(user);
+            //修改后获取新的用户信息
+            if (returnUser == null||returnUser.getId()==null||(returnUser.getUsername()==null&&returnUser.getPassword()==null)) {
+                // 如果获取失败，返回 404 资源未找到
+                return ResponseResult.notFound("用户信息修改失败，请联系管理员");
+            }
+            // 获取成功，返回用户信息
+            return ResponseResult.success(returnUser);
         } catch (Exception e) {
             // 如果发生错误，返回 500 错误响应
             return ResponseResult.internalServerError("登录失败：" + e.getMessage());

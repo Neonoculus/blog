@@ -4,9 +4,19 @@
 <mapper namespace="org.example.blog.mapper.TextMapper">
 
 
-    <select id="getTextToSort" resultType="org.example.blog.model.Text">
+    <select id="getTextBySort" resultType="org.example.blog.model.Text">
         SELECT *
         FROM text
         WHERE s_id = #{sId}
+    </select>
+    <select id="getTextByTID" resultType="org.example.blog.model.Text">
+        SELECT *
+        FROM text
+        WHERE t_id = #{tId}
+    </select>
+    <select id="getTextByUId" resultType="org.example.blog.model.Text">
+        SELECT *
+        FROM text
+        WHERE u_id = #{uId}
     </select>
 </mapper>
